@@ -1,0 +1,527 @@
+/* ==========================================================================
+   1. VARIABLES & BASE RESETS (WARM MUSEUM THEME)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --primary-color: #1C1917;
+    /* Deep stone/charcoal - softer than harsh black */
+    --secondary-color: #9C4533;
+    /* Rich Terracotta / Clay accent */
+    --background: #FDFBF7;
+    /* Warm gallery Alabaster / off-white */
+    --surface: #F4F1E9;
+    /* Slightly deeper cream for distinct sections */
+    --border: #E5E2DA;
+    /* Warm, subtle border */
+    --text-main: #3F3C3A;
+    /* Highly readable soft dark gray */
+    --text-light: #7A7571;
+    /* Muted gray-brown for descriptions */
+    --radius: 8px;
+    --transition: all 0.3s ease;
+
+    /* Font Variables */
+    --font-heading: 'Lora', "Georgia", serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-main);
+    line-height: 1.6;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant Headings */
+h1,
+h2,
+h3,
+.nav-logo {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+}
+
+/* ==========================================================================
+   2. NAVIGATION
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-logo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+}
+
+/* ==========================================================================
+   3. BUTTONS
+   ========================================================================== */
+.btn {
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #FDFBF7 !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-main) !important;
+}
+
+.btn-outline:hover {
+    background-color: var(--surface);
+    border-color: var(--primary-color);
+}
+
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
+.hero {
+    padding: 8rem 4rem;
+    text-align: center;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+    font-size: 3.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    max-width: 650px;
+    margin: 0 auto 2.5rem auto;
+}
+
+/* ==========================================================================
+   5. SECTIONS & GRIDS
+   ========================================================================== */
+.section {
+    padding: 5rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+/* ==========================================================================
+   6. CARDS
+   ========================================================================== */
+.card {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.card:hover {
+    border-color: #D4D0C5;
+    box-shadow: 0 10px 20px rgba(28, 25, 23, 0.05);
+    transform: translateY(-2px);
+}
+
+.card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.card-content {
+    padding: 1.75rem;
+}
+
+.card-category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-body);
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-heading);
+}
+
+.card-text {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   7. FORMS (Login/Register)
+   ========================================================================== */
+.auth-wrapper {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface);
+    padding: 2rem;
+}
+
+.auth-container {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 4px 15px rgba(28, 25, 23, 0.03);
+}
+
+.auth-container.wide {
+    max-width: 600px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    background-color: var(--background);
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(156, 69, 51, 0.1);
+}
+
+/* ==========================================================================
+   8. ALERTS
+   ========================================================================== */
+.alert {
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.alert-error {
+    background-color: #FDF3F3;
+    color: #9E2A2B;
+    border: 1px solid #E5B3B3;
+}
+
+.alert-success {
+    background-color: #F2F7F4;
+    color: #2D6A4F;
+    border: 1px solid #B7D5C4;
+}
+
+/* ==========================================================================
+   9. FOOTER
+   ========================================================================== */
+footer {
+    background-color: var(--primary-color);
+    color: #FDFBF7;
+    padding: 4rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+footer p {
+    color: #A8A29E;
+    margin-top: 1rem;
+}
+
+/* ==========================================================================
+   10. ARTIFACTS & GALLERY PAGES
+   ========================================================================== */
+.page-header {
+    background-color: var(--surface);
+    padding: 4rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.search-filter-bar {
+    background: var(--background);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 3rem;
+}
+
+.pagination {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pagination .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   11. STATUS BADGES
+   ========================================================================== */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--font-body);
+}
+
+.badge-active {
+    background-color: #F2F7F4;
+    color: #2D6A4F;
+    border: 1px solid #B7D5C4;
+}
+
+.badge-upcoming {
+    background-color: #FEF9EC;
+    color: #92610D;
+    border: 1px solid #F0D68D;
+}
+
+.badge-closed {
+    background-color: #F4F1E9;
+    color: #7A7571;
+    border: 1px solid #E5E2DA;
+}
+
+/* ==========================================================================
+   12. DASHBOARD — STAT CARDS & REPORT TABLES
+   ========================================================================== */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(156, 69, 51, 0.08);
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+}
+
+.report-card {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.report-table th {
+    background-color: var(--surface);
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--border);
+}
+
+.report-table td {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+.report-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.report-table tbody tr:hover td {
+    background-color: var(--surface);
+}
+
+/* SQL query label shown above each dashboard section */
+.db-badge {
+    display: inline-block;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0;
+    word-break: break-all;
+}
+
+/* ==========================================================================
+   13. PROFILE PAGE
+   ========================================================================== */
+.profile-row {
+    display: flex;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.profile-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.profile-value {
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
