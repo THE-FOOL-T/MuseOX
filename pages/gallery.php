@@ -134,12 +134,15 @@ if ($group_by !== '') {
     <nav class="navbar">
         <a href="../index.php" class="nav-logo">MuseoX</a>
         <ul class="nav-links">
-            <li><a href="../index.php#exhibitions">Exhibitions</a></li>
+            <li><a href="exhibitions.php">Exhibitions</a></li>
             <li><a href="artifacts.php">Artifacts</a></li>
             <li><a href="gallery.php" style="color: var(--secondary-color);">Virtual Gallery</a></li>
             
             <?php if(isset($_SESSION['user_id'])): ?>
-                <li><span style="color: var(--secondary-color); font-weight: 700;"><?php echo htmlspecialchars($_SESSION['username']); ?></span></li>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'Admin'): ?>
+                    <li><a href="dashboard.php">Admin Panel</a></li>
+                <?php endif; ?>
+                <li><a href="profile.php" style="color: var(--secondary-color); font-weight: 700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
                 <li><a href="login.php?action=logout" class="btn btn-outline" style="padding: 0.5rem 1rem;">Logout</a></li>
             <?php else: ?>
                 <li><a href="login.php" style="color: var(--primary-color);">Sign In</a></li>

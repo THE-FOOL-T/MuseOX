@@ -229,28 +229,38 @@ try {
 
     <section class="section" style="padding-top: 3rem;">
 
-        <!-- QUICK ACTIONS: Phase 4 Management Panel -->
+        <!-- QUICK ACTIONS: Management Panel -->
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.25rem;">Quick Actions</h2>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1rem; margin-bottom:4rem;">
-            <a href="manage_artifacts.php" class="report-card" style="padding:1.5rem; text-align:center; text-decoration:none; display:block;">
-                <div style="font-size:2rem; margin-bottom:0.5rem;">🏺</div>
-                <div style="font-weight:700; font-family:var(--font-heading); margin-bottom:0.25rem;">Manage Artifacts</div>
-                <div style="font-size:0.8rem; color:var(--text-light);">Add · Edit · Delete</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:1rem; margin-bottom:4rem;">
+            <a href="manage_artifacts.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">🏺</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Artifacts</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">Add · Edit · Delete</div>
             </a>
-            <a href="manage_exhibitions.php" class="report-card" style="padding:1.5rem; text-align:center; text-decoration:none; display:block;">
-                <div style="font-size:2rem; margin-bottom:0.5rem;">🏛️</div>
-                <div style="font-weight:700; font-family:var(--font-heading); margin-bottom:0.25rem;">Manage Exhibitions</div>
-                <div style="font-size:0.8rem; color:var(--text-light);">Add · Edit · Delete</div>
+            <a href="manage_exhibitions.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">🏛️</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Exhibitions</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">Add · Edit · Delete</div>
             </a>
-            <a href="manage_gallery.php" class="report-card" style="padding:1.5rem; text-align:center; text-decoration:none; display:block;">
-                <div style="font-size:2rem; margin-bottom:0.5rem;">🖼️</div>
-                <div style="font-weight:700; font-family:var(--font-heading); margin-bottom:0.25rem;">Manage Gallery</div>
-                <div style="font-size:0.8rem; color:var(--text-light);">Add · Edit · Delete</div>
+            <a href="manage_gallery.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">🖼️</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Gallery</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">Add · Edit · Delete</div>
             </a>
-            <a href="manage_users.php" class="report-card" style="padding:1.5rem; text-align:center; text-decoration:none; display:block;">
-                <div style="font-size:2rem; margin-bottom:0.5rem;">👥</div>
-                <div style="font-weight:700; font-family:var(--font-heading); margin-bottom:0.25rem;">Manage Users</div>
-                <div style="font-size:0.8rem; color:var(--text-light);">Activate · Suspend · Roles</div>
+            <a href="manage_users.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">👥</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Users</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">Activate · Suspend · Roles</div>
+            </a>
+            <a href="manage_feedback.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">⭐</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Feedback</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">Reviews · Ratings</div>
+            </a>
+            <a href="manage_donations.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">💚</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Donations</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">Analytics · Donors</div>
             </a>
         </div>
 
