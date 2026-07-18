@@ -1,6 +1,4 @@
--- ============================================================
---  Created Roles Table
--- ============================================================
+
 CREATE TABLE roles (
     role_id     NUMBER        PRIMARY KEY,
     role_name   VARCHAR2(50)  NOT NULL UNIQUE,
@@ -20,9 +18,8 @@ INSERT INTO roles (role_name, description) VALUES ('Admin',   'System Administra
 INSERT INTO roles (role_name, description) VALUES ('Visitor', 'Public User');
 COMMIT;
 
--- ============================================================
 --  Created Users Table
--- ============================================================
+
 CREATE TABLE users (
     user_id    NUMBER        PRIMARY KEY,
     username   VARCHAR2(50)  NOT NULL UNIQUE,
@@ -41,9 +38,9 @@ BEGIN
 END;
 /
 
--- ============================================================
+
 --  Created Visitors Table
--- ============================================================
+
 CREATE TABLE visitors (
     visitor_id NUMBER NOT NULL UNIQUE REFERENCES users(user_id) ON DELETE CASCADE,
     user_id    NUMBER NOT NULL UNIQUE REFERENCES users(user_id) ON DELETE CASCADE,
@@ -60,9 +57,8 @@ BEGIN
 END;
 /
 
--- ============================================================
 --  Created Audit Logs Table
--- ============================================================
+
 CREATE TABLE audit_logs (
     log_id           NUMBER        PRIMARY KEY,
     user_id          NUMBER,
@@ -81,9 +77,9 @@ BEGIN
 END;
 /
 
--- ============================================================
+
 --  PL/SQL PROCEDURE: Visitor Registration
--- ============================================================
+
 
 CREATE OR REPLACE PROCEDURE sp_RegisterVisitor(
     p_username IN VARCHAR2,

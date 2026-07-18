@@ -2,9 +2,7 @@ SET DEFINE OFF;
 
 DROP TABLE exhibitions CASCADE CONSTRAINTS;
 
--- ============================================================
---  Created Exhibitions Table
--- ============================================================
+
 CREATE TABLE exhibitions (
     exhibition_id NUMBER        PRIMARY KEY,
     title         VARCHAR2(255) NOT NULL,
@@ -29,10 +27,10 @@ BEGIN
 END;
 /
 
--- ============================================================
+
 --  Oracle View: Museum-wide Summary Statistics
 --  Used by dashboard.php to demonstrate Oracle Views
--- ============================================================
+
 CREATE OR REPLACE VIEW v_museum_stats AS
 SELECT
     (SELECT COUNT(*)                     FROM artifacts)   AS total_artifacts,
@@ -42,9 +40,9 @@ SELECT
     (SELECT NVL(SUM(estimated_value), 0) FROM artifacts)  AS total_artifact_value
 FROM dual;
 
--- ============================================================
+
 --  Sample Exhibition Data
--- ============================================================
+
 INSERT INTO exhibitions (title, wing, description, start_date, end_date, status, ticket_price, capacity, image_url)
 VALUES (
     'The Fall of Rome',

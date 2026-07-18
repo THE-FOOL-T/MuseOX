@@ -1,6 +1,6 @@
 SET DEFINE OFF;
 
--CREATE MATERIALIZED VIEW mv_artifact_category_stats
+CREATE MATERIALIZED VIEW mv_artifact_category_stats
 BUILD IMMEDIATE
 REFRESH COMPLETE ON DEMAND
 AS
@@ -34,7 +34,7 @@ CREATE OR REPLACE PROCEDURE sp_GenerateArtifactReport(
     CURSOR c_artifacts IS
         SELECT artifact_id, name, origin_country,
                condition_status, estimated_value,
-               TO_CHAR(acquisition_date, 'DD-MON-YYYY') AS acq_fmt
+               TO_CHAR(created_at, 'DD-MON-YYYY') AS acq_fmt
         FROM   artifacts
         WHERE  UPPER(category) = UPPER(p_category)
         ORDER  BY NVL(estimated_value, 0) DESC;
