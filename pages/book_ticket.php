@@ -119,15 +119,20 @@ $base_price  = (float)($exhibition['TICKET_PRICE'] ?? 0);
             <li><a href="exhibitions.php">Exhibitions</a></li>
             <li><a href="artifacts.php">Artifacts</a></li>
             <li><a href="gallery.php">Virtual Gallery</a></li>
+            <li><a href="search.php">Search</a></li>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin'): ?>
                     <li><a href="dashboard.php">Admin Panel</a></li>
+                <?php else: ?>
+                    <li><a href="feedback.php">Feedback</a></li>
+                    <li><a href="donate.php">Donate</a></li>
                 <?php endif; ?>
-                <li><a href="profile.php" style="color: var(--secondary-color); font-weight: 700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
-                <li><a href="login.php?action=logout" class="btn btn-outline" style="padding: 0.5rem 1rem;">Logout</a></li>
+                <li><a href="profile.php" style="color:var(--secondary-color); font-weight:700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+                <li><a href="login.php?action=logout" class="btn btn-outline" style="padding:0.5rem 1rem;">Logout</a></li>
             <?php else: ?>
-                <li><a href="login.php" style="color: var(--primary-color);">Sign In</a></li>
-                <li><a href="register.php" class="btn btn-primary" style="padding: 0.5rem 1.25rem;">Register</a></li>
+                <li><a href="donate.php">Donate</a></li>
+                <li><a href="login.php" style="color:var(--primary-color);">Sign In</a></li>
+                <li><a href="register.php" class="btn btn-primary" style="padding:0.5rem 1.25rem;">Register</a></li>
             <?php endif; ?>
         </ul>
     </nav>

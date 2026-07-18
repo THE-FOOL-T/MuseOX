@@ -143,7 +143,7 @@ $grand_total = array_sum(array_column($donation_totals, 'TOTAL_RAISED'));
         <!-- Raised so far -->
         <?php if (!empty($donation_totals)): ?>
         <div class="report-card" style="padding:2rem; margin-bottom:3rem; text-align:center;">
-            <span class="db-badge" style="display:inline-block; margin-bottom:1rem;">SELECT purpose, COUNT(*), SUM(amount), ROUND(AVG(amount),2) FROM donations GROUP BY purpose ORDER BY total_raised DESC</span>
+            
             <div style="font-size:2.8rem; font-family:var(--font-heading); font-weight:700; color:var(--secondary-color);">
                 $<?php echo number_format($grand_total, 2); ?>
             </div>

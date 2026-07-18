@@ -136,20 +136,26 @@ function statusBadge(string $status): string {
     <nav class="navbar">
         <a href="../index.php" class="nav-logo">MuseoX</a>
         <ul class="nav-links">
-            <li><a href="exhibitions.php" style="color: var(--secondary-color);">Exhibitions</a></li>
+            <li><a href="exhibitions.php" style="color:var(--secondary-color);">Exhibitions</a></li>
             <li><a href="artifacts.php">Artifacts</a></li>
             <li><a href="gallery.php">Virtual Gallery</a></li>
+            <li><a href="search.php">Search</a></li>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin'): ?>
                     <li><a href="dashboard.php">Admin Panel</a></li>
+                <?php else: ?>
+                    <li><a href="feedback.php">Feedback</a></li>
+                    <li><a href="donate.php">Donate</a></li>
                 <?php endif; ?>
-                <li><a href="profile.php" style="color: var(--secondary-color); font-weight: 700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
-                <li><a href="login.php?action=logout" class="btn btn-outline" style="padding: 0.5rem 1rem;">Logout</a></li>
+                <li><a href="profile.php" style="color:var(--secondary-color); font-weight:700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+                <li><a href="login.php?action=logout" class="btn btn-outline" style="padding:0.5rem 1rem;">Logout</a></li>
             <?php else: ?>
-                <li><a href="login.php" style="color: var(--primary-color);">Sign In</a></li>
-                <li><a href="register.php" class="btn btn-primary" style="padding: 0.5rem 1.25rem;">Register</a></li>
+                <li><a href="donate.php">Donate</a></li>
+                <li><a href="login.php" style="color:var(--primary-color);">Sign In</a></li>
+                <li><a href="register.php" class="btn btn-primary" style="padding:0.5rem 1.25rem;">Register</a></li>
             <?php endif; ?>
         </ul>
+
     </nav>
 
     <header class="page-header">
@@ -263,10 +269,16 @@ function statusBadge(string $status): string {
                 <div class="grid">
                     <?php foreach ($items as $item): ?>
                         <div class="card">
-                            <img src="<?php echo htmlspecialchars($item['IMAGE_URL'] ?? ''); ?>"
+                            <?php
+                                $img = !empty($item['IMAGE_URL']) ? htmlspecialchars($item['IMAGE_URL']) : '';
+                                // If URL doesn't start with http, it is a broken local path — clear it
+                                if (!empty($img) && !str_starts_with($item['IMAGE_URL'], 'http')) $img = '';
+                                $fallback = 'https://placehold.co/600x340/2C2420/FDFBF7?text=' . urlencode($item['TITLE'] ?? 'Exhibition');
+                            ?>
+                            <img src="<?php echo $img ?: $fallback; ?>"
                                  alt="<?php echo htmlspecialchars($item['TITLE']); ?>"
                                  class="card-img"
-                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518998053401-878c73fd616e?auto=format&fit=crop&w=600&q=80';">
+                                 onerror="this.onerror=null; this.src='<?php echo $fallback; ?>';">
                             <div class="card-content">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                                     <div class="card-category"><?php echo htmlspecialchars($item['WING'] ?? ''); ?></div>

@@ -33,11 +33,11 @@ if (!empty($query) && strlen($query) >= 2) {
                        name         AS result_title,
                        category     AS result_subtitle,
                        image_url,
-                       description
+                       short_description AS description
                 FROM artifacts
-                WHERE UPPER(name)        LIKE UPPER(:p_kw1)
-                   OR UPPER(category)    LIKE UPPER(:p_kw2)
-                   OR UPPER(description) LIKE UPPER(:p_kw3)
+                WHERE UPPER(name)             LIKE UPPER(:p_kw1)
+                   OR UPPER(category)         LIKE UPPER(:p_kw2)
+                   OR UPPER(short_description) LIKE UPPER(:p_kw3)
 
                 UNION ALL
 

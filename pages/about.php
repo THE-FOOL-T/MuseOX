@@ -19,6 +19,8 @@ require_once '../config/config.php';
             <li><a href="artifacts.php">Artifacts</a></li>
             <li><a href="gallery.php">Virtual Gallery</a></li>
             <li><a href="search.php">Search</a></li>
+            <li><a href="visit.php">Plan Visit</a></li>
+            <li><a href="about.php" style="color:var(--secondary-color);">About</a></li>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin'): ?>
                     <li><a href="dashboard.php">Admin Panel</a></li>
@@ -26,7 +28,7 @@ require_once '../config/config.php';
                     <li><a href="feedback.php">Feedback</a></li>
                     <li><a href="donate.php">Donate</a></li>
                 <?php endif; ?>
-                <li><a href="profile.php" style="font-weight:700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+                <li><a href="profile.php" style="color:var(--secondary-color); font-weight:700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
                 <li><a href="login.php?action=logout" class="btn btn-outline" style="padding:0.5rem 1rem;">Logout</a></li>
             <?php else: ?>
                 <li><a href="donate.php">Donate</a></li>
@@ -65,13 +67,14 @@ require_once '../config/config.php';
                 <div style="display:grid; gap:0.75rem; align-content:start;">
                     <?php
                     $info = [
-                        'Project' => 'MuseoX Museum Management System',
+                        'Project'  => 'MuseoX Museum Management System',
                         'Database' => 'Oracle Database 11g+',
                         'Backend'  => 'PHP 8.x with PDO OCI',
                         'Frontend' => 'Vanilla HTML5 + CSS3',
-                        'Phases'   => '6 (complete)',
+                        'Phases'   => '8 (complete)',
                         'Tables'   => '9 core tables',
-                        'SQL Files'=> '8 .sql files',
+                        'SQL Files'=> '10 .sql files',
+                        'Pages'    => '23 PHP pages',
                         'Developer'=> 'Torikul',
                     ];
                     foreach ($info as $k => $v): ?>
@@ -130,12 +133,20 @@ require_once '../config/config.php';
              ['INSERT / UPDATE / DELETE via PHP forms', 'TO_DATE() and TO_CHAR() for date handling', 'CASE WHEN for value tier classification', 'CREATE INDEX (regular, composite, function-based)', 'FUNCTION fn_GetArtifactCount, fn_GetTicketRevenue', 'FK-safe DELETE (checks related records first)']],
 
             ['Phase 5', 'Feedback, Donations & Search',
-             'phase5.sql',
+             'feedback-donations.sql',
              ['ORACLE PACKAGE pkg_MuseoX (SPEC + BODY)', 'sp_SubmitFeedback, sp_RecordDonation procedures', 'fn_GetExhibitionRating, fn_GetDonationByPurpose functions', 'GROUP BY + AVG + HAVING for ratings analytics', 'UNION ALL cross-table search (artifacts + gallery + exhibitions)', 'Anonymous PL/SQL BEGIN...END block for sample data']],
 
             ['Phase 6', 'Advanced Features & Reports',
-             'phase6.sql',
+             'advance.sql',
              ['MATERIALIZED VIEW mv_artifact_category_stats (BUILD IMMEDIATE, REFRESH ON DEMAND)', 'SYNONYM (mx_artifacts, mx_gallery… for 8 tables)', 'Explicit CURSOR with OPEN/FETCH/CLOSE', '%ROWTYPE and %TYPE variable declarations', 'Cursor attributes: %NOTFOUND, %ROWCOUNT, %ISOPEN', 'GROUP BY ROLLUP with GROUPING() function', 'MERGE statement (INSERT or UPDATE)', 'MONTHS_BETWEEN for membership duration', 'PIVOT-style CASE WHEN for ticket type breakdown', 'Print-ready reports with @media print CSS']],
+
+            ['Phase 7', 'Analytics, Audit Trail & Ticket Confirmation',
+             'analytics.sql',
+             ['RANK() OVER (PARTITION BY category ORDER BY estimated_value DESC)', 'DENSE_RANK() for exhibition revenue leaderboard with tier', 'ROW_NUMBER() OVER (PARTITION BY user_id) for latest booking', 'LAG() and LEAD() for month-over-month revenue comparison', 'LISTAGG(origin_country, ", ") WITHIN GROUP (ORDER BY origin_country)', 'BETWEEN TO_DATE(:from) AND TO_DATE(:to)+1 for date range filter', 'SYSDATE - INTERVAL "7" DAY for default audit window', 'NULLIF() in window frame to avoid divide-by-zero', 'Ticket confirmation: 4-table JOIN + NVL + TO_CHAR + security check', 'Consistent site-wide navbar across all pages']],
+
+            ['Phase 8', 'Final Features & Visit Page',
+             'final_queries.sql',
+             ['WITH CTE (3-level chained CTEs: ticket_stats, feedback_stats, combined)', 'Oracle native PIVOT — condition matrix for artifacts', 'NTILE(4) — divide artifacts into value quartiles', 'FIRST_VALUE / LAST_VALUE with UNBOUNDED frame clause', 'PERCENTILE_CONT(0.5) — median artifact value per category', 'PERCENTILE_DISC — discrete distribution analysis', 'CONNECT BY LEVEL — calendar/sequence generation from DUAL', 'CROSS JOIN for multi-CTE visit summary view', 'visit.php — Plan Your Visit public page with live DB data', 'README.md — Full project documentation']],
         ];
 
         foreach ($phases as [$phase, $title, $sql_files, $features]): ?>
@@ -164,12 +175,13 @@ require_once '../config/config.php';
             $feature_groups = [
                 'DDL' => ['CREATE TABLE', 'DROP TABLE', 'ALTER TABLE', 'CREATE INDEX', 'CREATE VIEW', 'CREATE MATERIALIZED VIEW', 'CREATE SYNONYM', 'CREATE SEQUENCE (alternative: trigger)'],
                 'DML' => ['INSERT INTO', 'UPDATE ... SET', 'DELETE FROM', 'MERGE INTO ... WHEN MATCHED ... WHEN NOT MATCHED'],
-                'DQL' => ['SELECT ... FROM ... WHERE', 'JOIN (INNER, LEFT)', 'GROUP BY', 'HAVING', 'ORDER BY', 'ROLLUP', 'UNION ALL', 'FETCH FIRST N ROWS ONLY', 'ROWNUM'],
-                'Oracle Functions' => ['NVL', 'NVL2', 'NULLIF', 'COALESCE', 'DECODE', 'TO_CHAR', 'TO_DATE', 'TRUNC', 'ROUND', 'MONTHS_BETWEEN', 'UPPER', 'LPAD', 'SYSDATE'],
-                'Aggregates' => ['COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'GROUPING()'],
+                'DQL' => ['SELECT ... FROM ... WHERE', 'JOIN (INNER, LEFT)', 'GROUP BY', 'HAVING', 'ORDER BY', 'ROLLUP', 'UNION ALL', 'FETCH FIRST N ROWS ONLY', 'ROWNUM', 'BETWEEN ... AND', 'WITH ... AS (...) — CTE', 'PIVOT ... FOR col IN (...)', 'CROSS JOIN', 'CONNECT BY LEVEL'],
+                'Oracle Functions' => ['NVL', 'NVL2', 'NULLIF', 'COALESCE', 'DECODE', 'TO_CHAR', 'TO_DATE', 'TRUNC', 'ROUND', 'MONTHS_BETWEEN', 'ADD_MONTHS', 'UPPER', 'LPAD', 'SUBSTR', 'LISTAGG', 'SYSDATE', 'INTERVAL'],
+                'Aggregates' => ['COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'GROUPING()', 'PERCENTILE_CONT', 'PERCENTILE_DISC'],
+                'Window Functions' => ['RANK() OVER (PARTITION BY ... ORDER BY ...)', 'DENSE_RANK() OVER (...)', 'ROW_NUMBER() OVER (PARTITION BY ...)', 'LAG(col) OVER (ORDER BY ...)', 'LEAD(col) OVER (ORDER BY ...)', 'NTILE(4) OVER (...)', 'FIRST_VALUE() OVER (... ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)', 'LAST_VALUE() OVER (...)', 'SUM(...) OVER (PARTITION BY ...)'],
                 'Constraints' => ['PRIMARY KEY', 'FOREIGN KEY … REFERENCES', 'CHECK', 'NOT NULL', 'DEFAULT', 'UNIQUE', 'ON DELETE CASCADE', 'ON DELETE SET NULL'],
                 'PL/SQL' => ['PROCEDURE', 'FUNCTION', 'PACKAGE (SPEC + BODY)', 'TRIGGER', 'CURSOR (explicit)', '%ROWTYPE', '%TYPE', 'RAISE_APPLICATION_ERROR', 'COMMIT', 'ROLLBACK', 'EXCEPTION … WHEN OTHERS', 'RETURNING INTO', 'DBMS_OUTPUT.PUT_LINE'],
-                'Misc' => ['CASE WHEN … THEN … END', 'Anonymous PL/SQL Block (BEGIN…END)', 'SELECT … FROM DUAL', 'Bind Variables (:p_name)', 'FETCH FIRST … ROWS ONLY', 'Correlated Subquery'],
+                'Misc' => ['CASE WHEN … THEN … END', 'Anonymous PL/SQL Block (BEGIN…END)', 'SELECT … FROM DUAL', 'Bind Variables (:p_name)', 'FETCH FIRST … ROWS ONLY', 'Correlated Subquery', 'REGEXP_LIKE'],
             ];
             foreach ($feature_groups as $group => $feats): ?>
                 <div style="margin-bottom:1.5rem;">

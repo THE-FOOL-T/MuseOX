@@ -484,17 +484,9 @@ footer p {
 
 /* SQL query label shown above each dashboard section */
 .db-badge {
-    display: inline-block;
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.3rem 0.75rem;
-    font-size: 0.75rem;
-    color: var(--text-light);
-    font-family: 'Courier New', monospace;
-    letter-spacing: 0;
-    word-break: break-all;
+    display: none;
 }
+
 
 /* ==========================================================================
    13. PROFILE PAGE
