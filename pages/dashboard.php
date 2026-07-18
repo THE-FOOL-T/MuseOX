@@ -262,6 +262,21 @@ try {
                 <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Donations</div>
                 <div style="font-size:0.75rem; color:var(--text-light);">Analytics · Donors</div>
             </a>
+            <a href="reports.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">📊</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Reports</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">ROLLUP · MV · Correlated</div>
+            </a>
+            <a href="analytics.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">📈</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Analytics</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">RANK · LAG · LISTAGG</div>
+            </a>
+            <a href="audit_logs.php" class="report-card" style="padding:1.25rem; text-align:center; text-decoration:none; display:block;">
+                <div style="font-size:1.8rem; margin-bottom:0.4rem;">🔍</div>
+                <div style="font-weight:700; font-family:var(--font-heading); font-size:0.9rem; margin-bottom:0.2rem;">Audit Logs</div>
+                <div style="font-size:0.75rem; color:var(--text-light);">BETWEEN · INTERVAL · Filter</div>
+            </a>
         </div>
 
         <!-- SECTION 1: Museum Overview — Oracle VIEW -->

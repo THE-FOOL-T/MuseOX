@@ -415,20 +415,25 @@ try {
                                     </span>
                                 </td>
                                 <td>
-                                    <?php if ($ts === 'Confirmed'): ?>
-                                        <form method="POST" action="profile.php" style="display: inline;"
-                                              onsubmit="return confirm('Cancel ticket #<?php echo (int)$t['TICKET_ID']; ?>?');">
-                                            <input type="hidden" name="action" value="cancel_ticket">
-                                            <input type="hidden" name="ticket_id" value="<?php echo (int)$t['TICKET_ID']; ?>">
-                                            <button type="submit" class="btn btn-outline"
-                                                    style="padding: 0.25rem 0.75rem; font-size: 0.8rem; color: #9E2A2B !important; border-color: #E5B3B3;">
-                                                Cancel
-                                            </button>
-                                        </form>
-                                    <?php else: ?>
-                                        <span style="color: var(--text-light); font-size: 0.85rem;">—</span>
-                                    <?php endif; ?>
-                                </td>
+                                     <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                                         <a href="ticket_confirmation.php?id=<?php echo (int)$t['TICKET_ID']; ?>"
+                                            class="btn btn-outline"
+                                            style="padding:0.25rem 0.75rem; font-size:0.8rem; color:var(--primary-color);">
+                                             View
+                                         </a>
+                                         <?php if ($ts === 'Confirmed'): ?>
+                                             <form method="POST" action="profile.php" style="display:inline;"
+                                                   onsubmit="return confirm('Cancel ticket #<?php echo (int)$t['TICKET_ID']; ?>?');">
+                                                 <input type="hidden" name="action" value="cancel_ticket">
+                                                 <input type="hidden" name="ticket_id" value="<?php echo (int)$t['TICKET_ID']; ?>">
+                                                 <button type="submit" class="btn btn-outline"
+                                                         style="padding:0.25rem 0.75rem; font-size:0.8rem; color:#9E2A2B !important; border-color:#E5B3B3;">
+                                                     Cancel
+                                                 </button>
+                                             </form>
+                                         <?php endif; ?>
+                                     </div>
+                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
