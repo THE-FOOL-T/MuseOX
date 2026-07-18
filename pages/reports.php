@@ -27,7 +27,7 @@ try {
                 GROUPING(category)              AS is_grand_total
          FROM artifacts
          GROUP BY ROLLUP(category)
-         ORDER BY GROUPING(category), NVL(category, 'Z')"
+         ORDER BY 7, 1"
     );
     $rollup_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {}
@@ -65,28 +65,29 @@ try {
 $above_avg = [];
 try {
     $stmt = $db->query(
-        "SELECT a.artifact_id, a.name, a.category, a.origin_country,
-                a.estimated_value, a.condition_status,
-                ROUND(avg_sub.cat_avg, 2)                           AS category_avg,
-                ROUND(a.estimated_value - avg_sub.cat_avg, 2)       AS above_avg_by,
-                ROUND((a.estimated_value / avg_sub.cat_avg) * 100 - 100, 1) AS pct_above
-         FROM artifacts a
-         JOIN (
-             SELECT category, AVG(estimated_value) AS cat_avg
-             FROM   artifacts
-             WHERE  estimated_value IS NOT NULL
-             GROUP  BY category
-         ) avg_sub ON a.category = avg_sub.category
-         WHERE a.estimated_value > avg_sub.cat_avg
-         ORDER BY above_avg_by DESC
-         FETCH FIRST 10 ROWS ONLY"
+        "SELECT * FROM (
+            SELECT a.artifact_id, a.name, a.category, a.origin_country,
+                   a.estimated_value, a.condition_status,
+                   ROUND(avg_sub.cat_avg, 2)                           AS category_avg,
+                   ROUND(a.estimated_value - avg_sub.cat_avg, 2)       AS above_avg_by,
+                   ROUND((a.estimated_value / avg_sub.cat_avg) * 100 - 100, 1) AS pct_above
+            FROM artifacts a
+            JOIN (
+                SELECT category, AVG(estimated_value) AS cat_avg
+                FROM   artifacts
+                WHERE  estimated_value IS NOT NULL
+                GROUP  BY category
+            ) avg_sub ON a.category = avg_sub.category
+            WHERE a.estimated_value > avg_sub.cat_avg
+            ORDER BY above_avg_by DESC
+         ) WHERE ROWNUM <= 10"
     );
     $above_avg = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {}
 
 // ============================================================
 //  4. PIVOT-style CASE WHEN — Ticket counts by type
-//  Demonstrates: conditional aggregation (Oracle PIVOT equivalent)
+//  Used for Report 4
 // ============================================================
 $ticket_pivot = [];
 try {
@@ -114,7 +115,7 @@ try {
 $visitor_activity = [];
 try {
     $stmt = $db->query(
-        "SELECT * FROM v_visitor_activity ORDER BY total_spent DESC FETCH FIRST 10 ROWS ONLY"
+        "SELECT * FROM (SELECT * FROM v_visitor_activity ORDER BY total_spent DESC) WHERE ROWNUM <= 10"
     );
     $visitor_activity = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {}
@@ -145,7 +146,7 @@ $report_date = date('d-M-Y H:i:s');
             .page-header { background: none; color: #000; padding: 1rem 0; }
             .page-header p { color: #555; }
             .section { padding: 1rem 0; }
-            .db-badge { display: none; }
+            
             h2 { color: #000; }
             .stat-card { border: 1px solid #ccc; }
         }
@@ -177,8 +178,8 @@ $report_date = date('d-M-Y H:i:s');
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Advanced Reports</h1>
         <p style="color:var(--text-light);">
-            Generated: <?php echo $report_date; ?> &nbsp;|&nbsp;
-            ROLLUP · Materialized View · Correlated Subquery · PIVOT-style CASE WHEN · MONTHS_BETWEEN
+            .Generated: <?php echo $report_date; ?> &nbsp;|&nbsp;
+           
         </p>
     </header>
 
@@ -205,11 +206,9 @@ $report_date = date('d-M-Y H:i:s');
         <?php endif; ?>
 
         <!-- ===== REPORT 1: ROLLUP ===== -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT NVL(category,'GRAND TOTAL'), COUNT(*), SUM(estimated_value), AVG(estimated_value), GROUPING(category) FROM artifacts GROUP BY ROLLUP(category) ORDER BY GROUPING(category)</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.25rem;">
-            Report 1 — Artifacts by Category <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(GROUP BY ROLLUP)</span>
+            Report 1 — Artifacts by Category
         </h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <?php if (!empty($rollup_data)): ?>
@@ -251,11 +250,9 @@ $report_date = date('d-M-Y H:i:s');
         </div>
 
         <!-- ===== REPORT 2: Materialized View ===== -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT * FROM mv_artifact_category_stats ORDER BY artifact_count DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.25rem;">
-            Report 2 — Materialized View Stats <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(mv_artifact_category_stats — pre-computed)</span>
+            Report 2 — Materialized View Stats
         </h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <?php if (!empty($mv_data)): ?>
@@ -294,11 +291,9 @@ $report_date = date('d-M-Y H:i:s');
         </div>
 
         <!-- ===== REPORT 3: Correlated Subquery ===== -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT a.name, a.estimated_value, avg_sub.cat_avg, (a.estimated_value - avg_sub.cat_avg) AS above_avg_by FROM artifacts a JOIN (SELECT category, AVG(estimated_value) FROM artifacts GROUP BY category) avg_sub ON ... WHERE a.estimated_value > avg_sub.cat_avg ORDER BY above_avg_by DESC FETCH FIRST 10 ROWS ONLY</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.25rem;">
-            Report 3 — Artifacts Above Category Average <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(Correlated Subquery · Top 10)</span>
+            Report 3 — Artifacts Above Category Average
         </h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <?php if (!empty($above_avg)): ?>
@@ -336,11 +331,9 @@ $report_date = date('d-M-Y H:i:s');
         </div>
 
         <!-- ===== REPORT 4: PIVOT-style Tickets ===== -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT e.title, SUM(CASE WHEN t.ticket_type='Adult' THEN t.quantity ELSE 0 END) AS adult_qty, SUM(CASE WHEN ... 'Child' ...) AS child_qty, SUM(CASE WHEN ... 'Senior' ...) AS senior_qty FROM tickets t JOIN exhibitions e ... WHERE t.status='Confirmed' GROUP BY e.exhibition_id, e.title, e.wing</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.25rem;">
-            Report 4 — Ticket Sales by Exhibition <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(PIVOT-style CASE WHEN)</span>
+            Report 4 — Ticket Sales by Exhibition
         </h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <?php if (!empty($ticket_pivot)): ?>
@@ -373,11 +366,9 @@ $report_date = date('d-M-Y H:i:s');
         </div>
 
         <!-- ===== REPORT 5: Visitor Activity (MONTHS_BETWEEN) ===== -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT * FROM v_visitor_activity (view uses MONTHS_BETWEEN(SYSDATE, CAST(u.created_at AS DATE)), 4 LEFT JOIN subqueries) ORDER BY total_spent DESC FETCH FIRST 10 ROWS ONLY</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.25rem;">
-            Report 5 — Visitor Activity <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(v_visitor_activity view · MONTHS_BETWEEN)</span>
+            Report 5 — Visitor Activity
         </h2>
         <div class="report-card" style="margin-bottom:4rem;">
             <?php if (!empty($visitor_activity)): ?>

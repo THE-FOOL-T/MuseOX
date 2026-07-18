@@ -271,8 +271,6 @@ function statusBadge(string $status): string {
                         <div class="card">
                             <?php
                                 $img = !empty($item['IMAGE_URL']) ? htmlspecialchars($item['IMAGE_URL']) : '';
-                                // If URL doesn't start with http, it is a broken local path — clear it
-                                if (!empty($img) && !str_starts_with($item['IMAGE_URL'], 'http')) $img = '';
                                 $fallback = 'https://placehold.co/600x340/2C2420/FDFBF7?text=' . urlencode($item['TITLE'] ?? 'Exhibition');
                             ?>
                             <img src="<?php echo $img ?: $fallback; ?>"

@@ -224,7 +224,6 @@ $tier_colors     = ['Low' => '#7A7571', 'Medium' => '#3A6351', 'High' => '#1D4ED
                         <?php echo $view_mode === 'add' ? 'Add New Artifact' : 'Edit Artifact'; ?>
                     </h3>
                     <p style="font-size:0.78rem; color:var(--text-light); margin-top:0.2rem;">
-                        <span class="db-badge"><?php echo $view_mode === 'add' ? 'INSERT INTO artifacts ... TO_DATE(?, \'YYYY-MM-DD\')' : 'UPDATE artifacts SET ... WHERE artifact_id = ?'; ?></span>
                     </p>
                 </div>
                 <a href="manage_artifacts.php" class="btn btn-outline" style="padding:0.5rem 1rem;">← Back to List</a>
@@ -309,9 +308,7 @@ $tier_colors     = ['Low' => '#7A7571', 'Medium' => '#3A6351', 'High' => '#1D4ED
 
         <!-- ========== LIST VIEW ========== -->
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-            <div>
-                <span class="db-badge">SELECT name, category, TO_CHAR(acq_date,'DD-MON-YYYY'), CASE WHEN value &lt; 50000 THEN 'Low' ... END AS value_tier FROM artifacts ORDER BY artifact_id DESC</span>
-            </div>
+            
             <a href="manage_artifacts.php?action=add" class="btn btn-primary" style="white-space:nowrap;">+ Add Artifact</a>
         </div>
 

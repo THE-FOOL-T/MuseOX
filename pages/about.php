@@ -156,7 +156,6 @@ require_once '../config/config.php';
                         <span style="background:var(--secondary-color); color:#fff; border-radius:4px; padding:0.2rem 0.6rem; font-size:0.78rem; font-weight:700; margin-right:0.75rem;"><?php echo $phase; ?></span>
                         <strong style="font-size:1.05rem; font-family:var(--font-heading);"><?php echo $title; ?></strong>
                     </div>
-                    <span class="db-badge"><?php echo $sql_files; ?></span>
                 </div>
                 <ul style="margin:0; padding:1.25rem 1.75rem; display:grid; grid-template-columns:1fr 1fr; gap:0.3rem 1.5rem; list-style:none;">
                     <?php foreach ($features as $f): ?>

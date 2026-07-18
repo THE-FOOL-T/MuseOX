@@ -67,7 +67,7 @@ require_once 'config/config.php';
         <h2 class="section-title">Current Exhibitions</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1518998053401-878c73fd616e?auto=format&fit=crop&w=600&q=80" alt="Ancient Rome" class="card-img">
+                <img src="assets/images/exhibitions/rome.jpg" alt="Ancient Rome" class="card-img" onerror="this.onerror=null; this.src='https://placehold.co/600x340/2C2420/FDFBF7?text=The+Fall+of+Rome';">
                 <div class="card-content">
                     <div class="card-category">Historical Wing • Until Dec 2026</div>
                     <h3 class="card-title">The Fall of Rome</h3>
@@ -75,7 +75,7 @@ require_once 'config/config.php';
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1544640808-32cb4f6864c7?auto=format&fit=crop&w=600&q=80" alt="Modern Art" class="card-img">
+                <img src="assets/images/gallery/persistence.jpg" alt="Modern Art" class="card-img" onerror="this.onerror=null; this.src='https://placehold.co/600x340/2C2420/FDFBF7?text=Modern+Expressions';">
                 <div class="card-content">
                     <div class="card-category">Contemporary Wing • Permanent</div>
                     <h3 class="card-title">Modern Expressions</h3>
@@ -83,7 +83,7 @@ require_once 'config/config.php';
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1566127444979-b3d2b654e3d7?auto=format&fit=crop&w=600&q=80" alt="Space Exploration" class="card-img">
+                <img src="assets/images/exhibitions/space.jpg" alt="Space Exploration" class="card-img" onerror="this.onerror=null; this.src='https://placehold.co/600x340/2C2420/FDFBF7?text=Beyond+Earth';">
                 <div class="card-content">
                     <div class="card-category">Science Hall • Opening Soon</div>
                     <h3 class="card-title">Beyond Earth</h3>

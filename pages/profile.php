@@ -258,7 +258,6 @@ try {
             <div style="padding: 1.75rem 2rem; border-bottom: 1px solid var(--border);">
                 <h3 style="font-size: 1.3rem; font-family: var(--font-heading);">Account Information</h3>
                 <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 0.25rem;">
-                    <span class="db-badge">SELECT u.*, r.role_name, v.* FROM users u JOIN roles r ... LEFT JOIN visitors v ... WHERE u.user_id = ?</span>
                 </p>
             </div>
             <div style="padding: 1.5rem 2rem;">
@@ -310,7 +309,6 @@ try {
             <div style="padding: 1.75rem 2rem; border-bottom: 1px solid var(--border);">
                 <h3 style="font-size: 1.3rem; font-family: var(--font-heading);">Update Contact Details</h3>
                 <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 0.25rem;">
-                    <span class="db-badge">UPDATE visitors SET phone = ?, country = ? WHERE user_id = ?</span>
                 </p>
             </div>
             <div style="padding: 2rem;">
@@ -344,7 +342,6 @@ try {
             <div style="padding: 1.75rem 2rem; border-bottom: 1px solid var(--border);">
                 <h3 style="font-size: 1.3rem; font-family: var(--font-heading);">Change Password</h3>
                 <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 0.25rem;">
-                    <span class="db-badge">UPDATE users SET password = password_hash(?) WHERE user_id = ?</span>
                 </p>
             </div>
             <div style="padding: 2rem;">
@@ -377,9 +374,7 @@ try {
         <!-- ======================================================
              BLOCK 4: My Booked Tickets — tickets JOIN exhibitions
              ====================================================== -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT t.*, e.title, e.wing FROM tickets t JOIN exhibitions e ON t.exhibition_id = e.exhibition_id WHERE t.user_id = ? ORDER BY t.booked_at DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.4rem; margin-bottom: 1.5rem;">My Booked Tickets</h2>
 
         <div class="report-card" style="margin-bottom: 3rem;">
@@ -449,9 +444,7 @@ try {
         <!-- ======================================================
              BLOCK 5: Activity Log — SELECT from audit_logs
              ====================================================== -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT action_performed, ip_address, log_timestamp FROM audit_logs WHERE user_id = ? ORDER BY log_timestamp DESC ROWNUM &lt;= 10</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.4rem; margin-bottom: 1.5rem;">Activity Log</h2>
 
         <div class="report-card" style="margin-bottom: 4rem;">

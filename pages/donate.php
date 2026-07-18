@@ -180,7 +180,6 @@ $grand_total = array_sum(array_column($donation_totals, 'TOTAL_RAISED'));
             <div style="padding:1.75rem 2rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1.3rem; font-family:var(--font-heading);">Make a Donation</h3>
                 <p style="font-size:0.78rem; color:var(--text-light); margin-top:0.25rem;">
-                    <span class="db-badge">BEGIN pkg_MuseoX.sp_RecordDonation(user_id, name, email, amount, purpose, msg, is_anon, o_id); END;</span>
                 </p>
             </div>
 

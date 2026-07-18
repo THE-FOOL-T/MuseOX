@@ -158,14 +158,7 @@ $type_links = [
         <?php if (!empty($query)): ?>
 
             <!-- SQL Badge -->
-            <div style="margin-bottom:2rem;">
-                <span class="db-badge">
-                    SELECT 'Artifact', name, category, image_url FROM artifacts WHERE UPPER(name) LIKE :kw
-                    UNION ALL SELECT 'Gallery', artwork_name, artist_name, image_url FROM gallery WHERE ...
-                    UNION ALL SELECT 'Exhibition', title, wing, image_url FROM exhibitions WHERE ...
-                    ORDER BY result_type, result_title
-                </span>
-            </div>
+            
 
             <?php if (empty($results)): ?>
                 <div style="text-align:center; padding:4rem 2rem; color:var(--text-light);">

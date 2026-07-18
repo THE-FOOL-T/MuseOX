@@ -138,9 +138,7 @@ try {
 
         <!-- Exhibition Ratings Overview -->
         <?php if (!empty($exhibitions)): ?>
-        <div style="margin-bottom:1rem;">
-            <span class="db-badge">SELECT exhibition_id, title, pkg_MuseoX.fn_GetExhibitionRating(exhibition_id) AS avg_rating FROM exhibitions WHERE status IN ('Active','Closed')</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">Exhibition Ratings</h2>
         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:1rem; margin-bottom:3rem;">
             <?php foreach ($exhibitions as $ex): ?>
@@ -172,7 +170,6 @@ try {
             <div style="padding:1.75rem 2rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1.3rem; font-family:var(--font-heading);">Submit Feedback</h3>
                 <p style="font-size:0.78rem; color:var(--text-light); margin-top:0.25rem;">
-                    <span class="db-badge">BEGIN pkg_MuseoX.sp_SubmitFeedback(user_id, exhibition_id, subject, message, rating, o_id); END;</span>
                 </p>
             </div>
             <div style="padding:2rem;">
@@ -232,9 +229,7 @@ try {
 
         <!-- My Feedback History -->
         <?php if (!empty($my_feedback)): ?>
-        <div style="margin-bottom:1rem;">
-            <span class="db-badge">SELECT f.*, e.title FROM feedback f LEFT JOIN exhibitions e ON f.exhibition_id = e.exhibition_id WHERE f.user_id = ? ORDER BY f.created_at DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">My Feedback History</h2>
         <div class="report-card" style="margin-bottom:4rem;">
             <table class="report-table">

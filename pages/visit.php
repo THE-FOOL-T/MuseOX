@@ -79,9 +79,8 @@ try {
                     condition_status,
                     NTILE(4) OVER (ORDER BY NVL(estimated_value,0) DESC NULLS LAST) AS quartile
              FROM artifacts
-         ) WHERE quartile = 1
-         ORDER BY estimated_value DESC
-         FETCH FIRST 6 ROWS ONLY"
+         )
+         WHERE quartile = 1 AND ROWNUM <= 6"
     );
     $top_artifacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {}
@@ -240,12 +239,8 @@ $hours = [
 
         <!-- Active Exhibitions — WITH CTE -->
         <?php if (!empty($active_exhibitions)): ?>
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">WITH ticket_stats AS (...), feedback_stats AS (...) SELECT e.*, ts.tickets_sold, fs.avg_rating, NTILE, CASE WHEN start_date > SYSDATE ... FROM exhibitions e LEFT JOIN ticket_stats ts ... LEFT JOIN feedback_stats fs ... WHERE e.status IN ('Active', 'Upcoming')</span>
-        </div>
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">
             Current &amp; Upcoming Exhibitions
-            <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(WITH CTE — chained)</span>
         </h2>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.5rem; margin-bottom:3.5rem;">
             <?php foreach ($active_exhibitions as $exh): ?>
@@ -308,12 +303,8 @@ $hours = [
 
         <!-- Top Artifacts — NTILE Q1 -->
         <?php if (!empty($top_artifacts)): ?>
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT * FROM (SELECT name, category, estimated_value, NTILE(4) OVER (ORDER BY estimated_value DESC) AS quartile FROM artifacts) WHERE quartile = 1 FETCH FIRST 6 ROWS ONLY</span>
-        </div>
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">
             Collection Highlights — Top Quartile
-            <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(NTILE(4) Q1 — most valuable 25%)</span>
         </h2>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; margin-bottom:3.5rem;">
             <?php foreach ($top_artifacts as $art): ?>
@@ -338,17 +329,13 @@ $hours = [
 
         <!-- PERCENTILE table -->
         <?php if (!empty($percentile_data)): ?>
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT category, COUNT(*), MIN, MAX, AVG, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY estimated_value) AS median_value FROM artifacts WHERE estimated_value IS NOT NULL GROUP BY category</span>
-        </div>
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">
-            Artifact Value Distribution
-            <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(PERCENTILE_CONT — median per category)</span>
+            Artifact Valuation Analysis
         </h2>
         <div class="report-card" style="margin-bottom:3.5rem;">
             <table class="report-table">
                 <thead>
-                    <tr><th>Category</th><th>Count</th><th>Min Value</th><th>Median (PERCENTILE_CONT)</th><th>Avg Value</th><th>Max Value</th></tr>
+                    <tr><th>Category</th><th>Count</th><th>Min Value</th><th>Median Value</th><th>Avg Value</th><th>Max Value</th></tr>
                 </thead>
                 <tbody>
                     <?php foreach ($percentile_data as $pd): ?>
@@ -368,12 +355,8 @@ $hours = [
 
         <!-- PIVOT table -->
         <?php if (!empty($pivot_data)): ?>
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT * FROM (...) PIVOT (COUNT(artifact_id) FOR condition_status IN ('Excellent' AS excellent_count, 'Good' AS good_count, 'Fair' AS fair_count, 'Poor' AS poor_count))</span>
-        </div>
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">
             Condition Matrix by Category
-            <span style="font-size:0.85rem; font-weight:400; color:var(--text-light);">(Oracle PIVOT clause)</span>
         </h2>
         <div class="report-card" style="margin-bottom:4rem;">
             <table class="report-table">

@@ -242,7 +242,6 @@ $statuses = ['Active', 'Upcoming', 'Closed'];
                         <?php echo $view_mode === 'add' ? 'Add New Exhibition' : 'Edit Exhibition'; ?>
                     </h3>
                     <p style="font-size:0.78rem; color:var(--text-light); margin-top:0.2rem;">
-                        <span class="db-badge"><?php echo $view_mode === 'add' ? "INSERT INTO exhibitions ... TO_DATE(?,'YYYY-MM-DD')" : "UPDATE exhibitions SET ... WHERE exhibition_id = ?"; ?></span>
                     </p>
                 </div>
                 <a href="manage_exhibitions.php" class="btn btn-outline" style="padding:0.5rem 1rem;">← Back to List</a>
@@ -332,7 +331,6 @@ $statuses = ['Active', 'Upcoming', 'Closed'];
 
         <!-- ========== LIST VIEW ========== -->
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-            <span class="db-badge">SELECT e.*, NVL(SUM(t.quantity),0) FROM exhibitions e LEFT JOIN (SELECT exhibition_id, SUM(quantity), SUM(total_amount) FROM tickets GROUP BY ...) t ON ... ORDER BY e.exhibition_id DESC</span>
             <a href="manage_exhibitions.php?action=add" class="btn btn-primary" style="white-space:nowrap;">+ Add Exhibition</a>
         </div>
 

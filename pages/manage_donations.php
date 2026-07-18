@@ -87,14 +87,15 @@ try {
 $top_donors = [];
 try {
     $stmt = $db->query(
-        "SELECT donor_name, donor_email,
-                COUNT(*)        AS num_donations,
-                SUM(amount)     AS total_given
-         FROM donations
-         WHERE is_anonymous = 0
-         GROUP BY donor_name, donor_email
-         ORDER BY total_given DESC
-         FETCH FIRST 5 ROWS ONLY"
+        "SELECT * FROM (
+            SELECT donor_name, donor_email,
+                   COUNT(*)        AS num_donations,
+                   SUM(amount)     AS total_given
+            FROM donations
+            WHERE is_anonymous = 0
+            GROUP BY donor_name, donor_email
+            ORDER BY total_given DESC
+         ) WHERE ROWNUM <= 5"
     );
     $top_donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {}
@@ -131,9 +132,7 @@ $grand_total = (float)($stats['TOTAL_RAISED'] ?? 0);
     <section class="section" style="padding-top:2rem; max-width:1200px;">
 
         <!-- Overview Cards -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT COUNT(*), NVL(SUM(amount),0), ROUND(AVG(amount),2), MAX(amount), COUNT(DISTINCT CASE WHEN user_id IS NOT NULL THEN user_id END) FROM donations</span>
-        </div>
+        
         <div class="stat-grid" style="margin-bottom:3rem;">
             <div class="stat-card">
                 <span class="stat-number">$<?php echo number_format((float)($stats['TOTAL_RAISED'] ?? 0), 0); ?></span>
@@ -155,20 +154,7 @@ $grand_total = (float)($stats['TOTAL_RAISED'] ?? 0);
 
         <!-- Package Function Demo -->
         <div class="report-card" style="padding:1.25rem 1.75rem; margin-bottom:2rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
-            <div>
-                <span class="db-badge">SELECT pkg_MuseoX.fn_GetDonationByPurpose('Education Programs') AS edu_total FROM dual</span>
-                <p style="font-size:0.82rem; color:var(--text-light); margin-top:0.35rem;">Calling package function from PHP via PDO</p>
-            </div>
-            <div style="margin-left:auto; text-align:right;">
-                <div style="font-size:1.6rem; font-weight:700; color:var(--secondary-color);">$<?php echo number_format($edu_total, 2); ?></div>
-                <div style="font-size:0.8rem; color:var(--text-light);">Education Programs Fund</div>
-            </div>
-        </div>
-
-        <!-- By Purpose -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT purpose, COUNT(*), SUM(amount), ROUND(AVG(amount),2), MAX(amount) FROM donations GROUP BY purpose ORDER BY total DESC</span>
-        </div>
+            
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">Breakdown by Purpose</h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <?php if (!empty($by_purpose)): ?>
@@ -202,9 +188,7 @@ $grand_total = (float)($stats['TOTAL_RAISED'] ?? 0);
 
         <!-- Top Donors -->
         <?php if (!empty($top_donors)): ?>
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT donor_name, SUM(amount) AS total_given FROM donations WHERE is_anonymous = 0 GROUP BY donor_name, donor_email ORDER BY total_given DESC FETCH FIRST 5 ROWS ONLY</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">Top Donors</h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <table class="report-table">
@@ -225,9 +209,7 @@ $grand_total = (float)($stats['TOTAL_RAISED'] ?? 0);
         <?php endif; ?>
 
         <!-- All Donations -->
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT CASE WHEN d.is_anonymous=1 THEN 'Anonymous Patron' ELSE d.donor_name END, d.amount, d.purpose, NVL(u.username,'—') FROM donations d LEFT JOIN users u ON d.user_id = u.user_id ORDER BY d.donated_at DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">All Donations</h2>
         <div class="report-card" style="margin-bottom:4rem;">
             <?php if (!empty($donations)): ?>

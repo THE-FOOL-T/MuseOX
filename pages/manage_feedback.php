@@ -144,9 +144,7 @@ $total_count    = count($all_feedback);
 
         <!-- Exhibition Ratings Summary — GROUP BY + AVG + HAVING -->
         <?php if (!empty($rating_summary)): ?>
-        <div style="margin-bottom:0.75rem;">
-            <span class="db-badge">SELECT e.title, COUNT(f.feedback_id), ROUND(AVG(f.rating),2), MIN(rating), MAX(rating) FROM exhibitions e JOIN feedback f ... GROUP BY e.exhibition_id, e.title, e.wing HAVING COUNT(f.feedback_id) >= 1 ORDER BY avg_rating DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align:left; font-size:1.4rem; margin-bottom:1.5rem;">Ratings by Exhibition</h2>
         <div class="report-card" style="margin-bottom:3rem;">
             <table class="report-table">
@@ -191,9 +189,7 @@ $total_count    = count($all_feedback);
 
         <!-- All Feedback List -->
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.75rem;">
-            <div>
-                <span class="db-badge">SELECT f.*, e.title, NVL(u.username,'Guest') FROM feedback f LEFT JOIN exhibitions e ... LEFT JOIN users u ... <?php echo !empty($filter_status) ? "WHERE f.status = '$filter_status'" : ''; ?> ORDER BY f.created_at DESC</span>
-            </div>
+            
             <div style="display:flex; gap:0.5rem;">
                 <a href="manage_feedback.php" class="btn btn-outline" style="padding:0.35rem 0.8rem; font-size:0.82rem; <?php echo empty($filter_status) ? 'background:var(--secondary-color);color:#fff;' : ''; ?>">All</a>
                 <a href="manage_feedback.php?status=Pending" class="btn btn-outline" style="padding:0.35rem 0.8rem; font-size:0.82rem; <?php echo $filter_status === 'Pending' ? 'background:var(--secondary-color);color:#fff;' : ''; ?>">Pending</a>

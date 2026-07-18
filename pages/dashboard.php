@@ -222,9 +222,7 @@ try {
 
     <header class="page-header">
         <h1 style="font-size: 2.8rem; margin-bottom: 1rem;">Admin Panel</h1>
-        <p style="color: var(--text-light); max-width: 680px; margin: 0 auto;">
-            Live Oracle SQL analytics — Views, GROUP BY, aggregates, JOINs, and HAVING across all museum data.
-        </p>
+       
     </header>
 
     <section class="section" style="padding-top: 3rem;">
@@ -280,9 +278,7 @@ try {
         </div>
 
         <!-- SECTION 1: Museum Overview — Oracle VIEW -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">Oracle View: SELECT * FROM v_museum_stats</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Museum Overview</h2>
         <div class="stat-grid" style="margin-bottom: 4rem;">
             <div class="stat-card">
@@ -312,9 +308,7 @@ try {
         </div>
 
         <!-- SECTION 2: Artifacts by Category -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT category, COUNT(*), SUM(estimated_value), AVG(estimated_value) FROM artifacts GROUP BY category ORDER BY COUNT(*) DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Artifacts by Category</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($artifacts_by_category)): ?>
@@ -337,9 +331,7 @@ try {
         </div>
 
         <!-- SECTION 3: Top Countries by Artifact Value -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT origin_country, COUNT(*), SUM(estimated_value) FROM artifacts GROUP BY origin_country ORDER BY SUM(estimated_value) DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Top Countries by Artifact Value</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($top_countries)): ?>
@@ -361,9 +353,7 @@ try {
         </div>
 
         <!-- SECTION 4: Gallery by Artist -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT artist_name, COUNT(*), MIN(creation_year), MAX(creation_year) FROM gallery GROUP BY artist_name HAVING COUNT(*) &gt;= 1 ORDER BY COUNT(*) DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Gallery Items by Artist</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($gallery_by_artist)): ?>
@@ -386,9 +376,7 @@ try {
         </div>
 
         <!-- SECTION 5: Exhibitions by Status -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT status, COUNT(*), AVG(ticket_price), SUM(capacity) FROM exhibitions GROUP BY status ORDER BY COUNT(*) DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Exhibitions Summary by Status</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($exhibitions_by_status)): ?>
@@ -414,9 +402,7 @@ try {
         </div>
 
         <!-- SECTION 6: Ticket Sales by Exhibition -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT e.title, COUNT(t.*), SUM(t.quantity), SUM(t.total_amount) FROM exhibitions e LEFT JOIN tickets t ON ... GROUP BY e.exhibition_id ORDER BY SUM(t.total_amount) DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Ticket Sales by Exhibition</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($ticket_sales)): ?>
@@ -440,9 +426,7 @@ try {
         </div>
 
         <!-- SECTION 7: Revenue by Ticket Type -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT ticket_type, COUNT(*), SUM(quantity), SUM(total_amount), AVG(unit_price) FROM tickets WHERE status = 'Confirmed' GROUP BY ticket_type ORDER BY SUM(total_amount) DESC</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Revenue by Ticket Type</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($revenue_by_type)): ?>
@@ -466,9 +450,7 @@ try {
         </div>
 
         <!-- SECTION 8: Recent Bookings -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT u.username, e.title, t.ticket_type, t.quantity, t.total_amount, t.booked_at FROM tickets t JOIN users u ... JOIN exhibitions e ... ORDER BY t.booked_at DESC ROWNUM &lt;= 10</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Recent Bookings</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($recent_bookings)): ?>
@@ -497,9 +479,7 @@ try {
         </div>
 
         <!-- SECTION 9: Recent Registered Visitors -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT u.username, u.email, v.country, u.created_at FROM users u JOIN visitors v ON u.user_id = v.user_id ORDER BY u.created_at DESC WHERE ROWNUM &lt;= 8</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">Recently Registered Visitors</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($recent_visitors)): ?>
@@ -527,9 +507,7 @@ try {
         </div>
 
         <!-- SECTION 10: Recent Audit Logs -->
-        <div style="margin-bottom: 1rem;">
-            <span class="db-badge">SELECT a.*, u.username FROM audit_logs a LEFT JOIN users u ON a.user_id = u.user_id ORDER BY a.log_timestamp DESC WHERE ROWNUM &lt;= 10</span>
-        </div>
+        
         <h2 class="section-title" style="text-align: left; font-size: 1.6rem; margin-bottom: 2rem;">System Audit Logs</h2>
         <div class="report-card" style="margin-bottom: 4rem;">
             <?php if (!empty($recent_logs)): ?>

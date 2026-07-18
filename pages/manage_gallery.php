@@ -209,7 +209,6 @@ $categories = ['Painting', 'Sculpture', 'Photography', 'Print', 'Drawing', 'Digi
                         <?php echo $view_mode === 'add' ? 'Add Gallery Item' : 'Edit Gallery Item'; ?>
                     </h3>
                     <p style="font-size:0.78rem; color:var(--text-light); margin-top:0.2rem;">
-                        <span class="db-badge"><?php echo $view_mode === 'add' ? 'INSERT INTO gallery ...' : 'UPDATE gallery SET ... WHERE gallery_id = ?'; ?></span>
                     </p>
                 </div>
                 <a href="manage_gallery.php" class="btn btn-outline" style="padding:0.5rem 1rem;">← Back to List</a>
@@ -290,7 +289,6 @@ $categories = ['Painting', 'Sculpture', 'Photography', 'Print', 'Drawing', 'Digi
 
         <!-- ========== LIST VIEW ========== -->
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-            <span class="db-badge">SELECT gallery_id, artwork_name, artist_name, CASE WHEN creation_year &lt; 1400 THEN 'Medieval' ... END AS era FROM gallery ORDER BY gallery_id DESC</span>
             <a href="manage_gallery.php?action=add" class="btn btn-primary" style="white-space:nowrap;">+ Add Artwork</a>
         </div>
 

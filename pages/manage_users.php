@@ -191,9 +191,7 @@ $suspended      = count(array_filter($users, fn($u) => $u['STATUS'] === 'Suspend
         </div>
 
         <!-- User List -->
-        <div style="margin-bottom:1rem;">
-            <span class="db-badge">SELECT u.user_id, u.username, r.role_name, NVL(v.country,'—'), NVL(t.ticket_count,0), DECODE(u.status,'Active','Active','Suspended','Suspended','Unknown') FROM users u JOIN roles r ... LEFT JOIN visitors v ... LEFT JOIN (SELECT user_id, COUNT(*), SUM(total_amount) FROM tickets GROUP BY ...) t ... ORDER BY u.created_at DESC</span>
-        </div>
+        
 
         <div class="report-card" style="margin-bottom:4rem;">
             <?php if (!empty($users)): ?>

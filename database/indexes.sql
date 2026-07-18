@@ -2,7 +2,6 @@ SET DEFINE OFF;
 
 
 --  Phase 4: Performance Indexes
---  Demonstrates: CREATE INDEX, composite indexes, function-based index
 
 
 -- artifacts indexes
@@ -42,7 +41,6 @@ CREATE INDEX idx_gallery_name_upper    ON gallery   (UPPER(artwork_name));
 
 --  Oracle Stored Function: fn_GetArtifactCount
 --  Returns count of artifacts in a given category
---  Demonstrates: FUNCTION, IN param, RETURN, SELECT INTO
 
 CREATE OR REPLACE FUNCTION fn_GetArtifactCount(p_category IN VARCHAR2)
 RETURN NUMBER AS
@@ -88,7 +86,7 @@ SELECT
     e.ticket_price,
     e.capacity,
     NVL(t.tickets_sold, 0)          AS tickets_sold,
-    NVL(t.total_revenue, 0)         AS total_revenue,
+    fn_GetTicketRevenue(e.exhibition_id) AS total_revenue,
     e.capacity - NVL(t.tickets_sold, 0) AS remaining_capacity,
     CASE
         WHEN e.capacity = 0 THEN 0
@@ -97,8 +95,7 @@ SELECT
 FROM exhibitions e
 LEFT JOIN (
     SELECT exhibition_id,
-           SUM(quantity)     AS tickets_sold,
-           SUM(total_amount) AS total_revenue
+           SUM(quantity)     AS tickets_sold
     FROM   tickets
     WHERE  status = 'Confirmed'
     GROUP  BY exhibition_id

@@ -1,18 +1,6 @@
 SET DEFINE OFF;
 
--- ============================================================
---  Phase 8: Final Advanced Oracle Features
---  Demonstrates: WITH (CTE), CONNECT BY LEVEL, Oracle PIVOT,
---                NTILE(), FIRST_VALUE, LAST_VALUE,
---                PERCENTILE_CONT, PERCENTILE_DISC
--- ============================================================
 
-
--- ============================================================
---  1. WITH Clause — Common Table Expressions (CTEs)
---  Multi-level CTEs for exhibition analytics
---  Demonstrates: WITH ... AS (...), chained CTEs
--- ============================================================
 CREATE OR REPLACE VIEW v_top_exhibition_analytics AS
 WITH ticket_stats AS (
     -- CTE 1: aggregate confirmed ticket data per exhibition
