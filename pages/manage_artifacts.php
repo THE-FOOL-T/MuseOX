@@ -36,17 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $stmt = $db->prepare(
                     "INSERT INTO artifacts
-                         (name, category, origin_country, acquisition_date,
-                          condition_status, estimated_value, description, image_url)
+                         (name, category, origin_country,
+                          condition_status, estimated_value, short_description, image_url)
                      VALUES
                          (:p_name, :p_cat, :p_country,
-                          TO_DATE(NULLIF(:p_acq, ''), 'YYYY-MM-DD'),
                           :p_cond, :p_val, :p_desc, :p_img)"
                 );
                 $stmt->bindValue(':p_name',    $name);
                 $stmt->bindValue(':p_cat',     $category);
                 $stmt->bindValue(':p_country', $origin_country  ?: null);
-                $stmt->bindValue(':p_acq',     $acquisition_date ?: '');
                 $stmt->bindValue(':p_cond',    $condition_status);
                 $stmt->bindValue(':p_val',     $estimated_value);
                 $stmt->bindValue(':p_desc',    $description     ?: null);
@@ -81,17 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          name             = :p_name,
                          category         = :p_cat,
                          origin_country   = :p_country,
-                         acquisition_date = TO_DATE(NULLIF(:p_acq, ''), 'YYYY-MM-DD'),
                          condition_status = :p_cond,
                          estimated_value  = :p_val,
-                         description      = :p_desc,
+                         short_description = :p_desc,
                          image_url        = :p_img
                      WHERE artifact_id = :p_id"
                 );
                 $stmt->bindValue(':p_name',    $name);
                 $stmt->bindValue(':p_cat',     $category);
                 $stmt->bindValue(':p_country', $origin_country   ?: null);
-                $stmt->bindValue(':p_acq',     $acquisition_date ?: '');
                 $stmt->bindValue(':p_cond',    $condition_status);
                 $stmt->bindValue(':p_val',     $estimated_value);
                 $stmt->bindValue(':p_desc',    $description      ?: null);
@@ -140,7 +136,7 @@ if ($edit_id > 0) {
     try {
         $stmt = $db->prepare(
             "SELECT a.*,
-                    TO_CHAR(a.acquisition_date, 'YYYY-MM-DD') AS acq_date_input
+                    TO_CHAR(a.created_at, 'YYYY-MM-DD') AS acq_date_input
              FROM artifacts a
              WHERE a.artifact_id = :p_id"
         );
@@ -164,7 +160,7 @@ $artifacts = [];
 try {
     $stmt = $db->query(
         "SELECT artifact_id, name, category, origin_country,
-                TO_CHAR(acquisition_date, 'DD-MON-YYYY') AS acq_date_fmt,
+                TO_CHAR(created_at, 'DD-MON-YYYY') AS acq_date_fmt,
                 condition_status, estimated_value,
                 CASE
                     WHEN estimated_value IS NULL        THEN 'Unknown'
@@ -177,7 +173,7 @@ try {
          ORDER BY artifact_id DESC"
     );
     $artifacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {}
+} catch (PDOException $e) { error_log($e->getMessage()); }
 
 $categories      = ['Sculpture', 'Painting', 'Textile', 'Jewelry', 'Weaponry', 'Ceramics', 'Document', 'Fossil', 'Other'];
 $conditions      = ['Excellent', 'Good', 'Fair', 'Poor'];
@@ -207,7 +203,7 @@ $tier_colors     = ['Low' => '#7A7571', 'Medium' => '#3A6351', 'High' => '#1D4ED
 
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Manage Artifacts</h1>
-        <p style="color:var(--text-light);">Full CRUD — INSERT, UPDATE, DELETE with Oracle TO_DATE, TO_CHAR, CASE WHEN</p>
+       
     </header>
 
     <section class="section" style="padding-top:2rem; max-width:1200px;">

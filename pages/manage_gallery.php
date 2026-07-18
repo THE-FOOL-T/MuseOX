@@ -188,7 +188,7 @@ $categories = ['Painting', 'Sculpture', 'Photography', 'Print', 'Drawing', 'Digi
 
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Manage Gallery</h1>
-        <p style="color:var(--text-light);">Full CRUD — INSERT, UPDATE, DELETE with CASE WHEN era classification</p>
+      
     </header>
 
     <section class="section" style="padding-top:2rem; max-width:1200px;">

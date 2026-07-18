@@ -122,9 +122,7 @@ $total_count    = count($all_feedback);
 
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Manage Feedback</h1>
-        <p style="color:var(--text-light);">
-            Review visitor ratings — GROUP BY + AVG + HAVING, UPDATE status, JOIN across 3 tables
-        </p>
+     
     </header>
 
     <section class="section" style="padding-top:2rem; max-width:1200px;">

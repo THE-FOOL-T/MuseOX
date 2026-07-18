@@ -158,9 +158,7 @@ $suspended      = count(array_filter($users, fn($u) => $u['STATUS'] === 'Suspend
 
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Manage Users</h1>
-        <p style="color:var(--text-light);">
-            Activate / Suspend / Change Role — UPDATE with subquery role lookup, DECODE, NVL, multi-table JOIN
-        </p>
+        
     </header>
 
     <section class="section" style="padding-top:2rem; max-width:1300px;">

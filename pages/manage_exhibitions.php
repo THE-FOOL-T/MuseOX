@@ -222,7 +222,6 @@ $statuses = ['Active', 'Upcoming', 'Closed'];
 
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Manage Exhibitions</h1>
-        <p style="color:var(--text-light);">Full CRUD — INSERT, UPDATE, DELETE with FK check, subquery JOIN for ticket stats</p>
     </header>
 
     <section class="section" style="padding-top:2rem; max-width:1200px;">

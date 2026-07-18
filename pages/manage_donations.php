@@ -125,9 +125,7 @@ $grand_total = (float)($stats['TOTAL_RAISED'] ?? 0);
 
     <header class="page-header">
         <h1 style="font-size:2.4rem; margin-bottom:0.5rem;">Donation Analytics</h1>
-        <p style="color:var(--text-light);">
-            COUNT, SUM, AVG, MAX — GROUP BY purpose, CASE WHEN for anonymous masking, FETCH FIRST for top donors
-        </p>
+      
     </header>
 
     <section class="section" style="padding-top:2rem; max-width:1200px;">
