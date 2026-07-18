@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Oracle Database Configurations
-define('DB_USER', 'db');           
+define('DB_USER', 'museOX');           
 define('DB_PASS', '2022');    
 define('DB_CONN_STR', 'localhost/XE'); 
 

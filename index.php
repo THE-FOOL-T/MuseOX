@@ -17,14 +17,19 @@ require_once 'config/config.php';
             <li><a href="pages/exhibitions.php">Exhibitions</a></li>
             <li><a href="pages/artifacts.php">Artifacts</a></li>
             <li><a href="pages/gallery.php">Virtual Gallery</a></li>
-            
+            <li><a href="pages/search.php">Search</a></li>
+            <li><a href="pages/visit.php">Plan Visit</a></li>
             <?php if(isset($_SESSION['user_id'])): ?>
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'Admin'): ?>
                     <li><a href="pages/dashboard.php">Admin Panel</a></li>
+                <?php else: ?>
+                    <li><a href="pages/feedback.php">Feedback</a></li>
+                    <li><a href="pages/donate.php">Donate</a></li>
                 <?php endif; ?>
                 <li><a href="pages/profile.php" style="color: var(--secondary-color); font-weight: 700;"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
                 <li><a href="pages/login.php?action=logout" class="btn btn-outline" style="padding: 0.5rem 1rem;">Logout</a></li>
             <?php else: ?>
+                <li><a href="pages/donate.php">Donate</a></li>
                 <li><a href="pages/login.php" style="color: var(--primary-color);">Sign In</a></li>
                 <li><a href="pages/register.php" class="btn btn-primary" style="padding: 0.5rem 1.25rem;">Register</a></li>
             <?php endif; ?>
@@ -32,11 +37,29 @@ require_once 'config/config.php';
     </nav>
 
     <header class="hero">
-        <h1>Art & History, Digitized.</h1>
-        <p>Explore thousands of artifacts, book your visit, and take a virtual tour of our contemporary and historical galleries. </p>
-        <div style="margin-top: 2.5rem;">
-            <a href="pages/register.php" class="btn btn-primary" style="margin-right: 15px;">Book Tickets</a>
-            <a href="pages/artifacts.php" class="btn btn-primary">Explore Artifacts</a>
+        <h1>Art &amp; History, Digitized.</h1>
+        <p>Explore thousands of artifacts, book your visit, and take a virtual tour of our contemporary and historical galleries.</p>
+        <!-- Search bar -->
+        <form action="pages/search.php" method="GET"
+              style="display:flex; max-width:520px; margin:2rem auto 0; box-shadow:0 4px 20px rgba(0,0,0,0.25); border-radius:8px; overflow:hidden;">
+            <input type="text" name="q" placeholder="Search artifacts, artworks, exhibitions…"
+                   style="flex:1; padding:0.9rem 1.25rem; border:none; font-size:1rem;
+                          background:rgba(255,255,255,0.96); color:#1C1917; outline:none;">
+            <button type="submit"
+                    style="padding:0.9rem 1.5rem; background:var(--secondary-color);
+                           border:none; color:#fff; font-weight:700; font-size:1rem; cursor:pointer;">
+                Search
+            </button>
+        </form>
+        <div style="margin-top: 1.75rem;">
+            <?php if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') !== 'Admin'): ?>
+                <a href="pages/exhibitions.php" class="btn btn-primary" style="margin-right:12px;">Book Tickets</a>
+                <a href="pages/feedback.php" class="btn btn-outline" style="margin-right:12px;">Leave Feedback</a>
+                <a href="pages/donate.php" class="btn btn-outline">Donate</a>
+            <?php else: ?>
+                <a href="pages/exhibitions.php" class="btn btn-primary" style="margin-right:12px;">Explore Exhibitions</a>
+                <a href="pages/artifacts.php" class="btn btn-outline">Browse Artifacts</a>
+            <?php endif; ?>
         </div>
     </header>
 
